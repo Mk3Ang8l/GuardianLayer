@@ -1,0 +1,101 @@
+name: Publish
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      repository:
+        description: 'Target repository to upload to (pypi or testpypi)'
+        required: false
+        default: 'pypi'
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  build-and-publish:
+    name: Build and publish package
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install build tooling
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install --upgrade build twine
+
+      - name: Build distributions
+        run: |
+          rm -rf dist || true
+          python -m build --sdist --wheel
+
+      - name: Determine target repository and token
+        id: auth
+        run: |
+          # Determine whether this run should publish to PyPI or TestPyPI.
+          # If invoked via workflow_dispatch and a repository input was provided, respect it.
+          # Otherwise default to 'pypi' for tag pushes.
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            REPO_INPUT="${{ github.event.inputs.repository }}"
+            if [ -n "$REPO_INPUT" ]; then
+              REPOSITORY="$REPO_INPUT"
+            else
+              REPOSITORY="pypi"
+            fi
+          else
+            # tag push -> publish to pypi by default
+            REPOSITORY="pypi"
+          fi
+
+          echo "repository=${REPOSITORY}" >> $GITHUB_OUTPUT
+
+          if [ "$REPOSITORY" = "testpypi" ]; then
+            echo "Using TestPyPI token"
+            echo "pypi_token=${{ secrets.TEST_PYPI_API_TOKEN }}" >> $GITHUB_OUTPUT
+          else
+            echo "Using PyPI token"
+            echo "pypi_token=${{ secrets.PYPI_API_TOKEN }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Verify artifacts
+        run: |
+          ls -la dist
+          echo "Files under dist/"
+
+      - name: Publish to PyPI / TestPyPI
+        env:
+          REPOSITORY: ${{ steps.auth.outputs.repository }}
+          PYPI_TOKEN: ${{ steps.auth.outputs.pypi_token }}
+        run: |
+          if [ -z "$PYPI_TOKEN" ]; then
+            echo "ERROR: PyPI token is empty. Ensure the repository secrets contain the appropriate token."
+            exit 1
+          fi
+
+          # Choose repository flag for twine
+          if [ "$REPOSITORY" = "testpypi" ]; then
+            REPO_FLAG="--repository testpypi"
+          else
+            REPO_FLAG=""
+          fi
+
+          python -m twine upload $REPO_FLAG -u __token__ -p "$PYPI_TOKEN" dist/*
+
+      - name: Create GitHub release (optional)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Release ${{ github.ref_name }}
+          files: dist/*
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

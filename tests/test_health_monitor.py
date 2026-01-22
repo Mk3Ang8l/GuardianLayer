@@ -1,8 +1,10 @@
 """Test script for health_monitor.py"""
-import sys
-sys.path.insert(0, 'c:/Users/julien/GuardianLayer')
 
-from src.health_monitor import HealthMonitor, ErrorClassifier, ErrorType
+import sys
+
+sys.path.insert(0, "c:/Users/julien/GuardianLayer")
+
+from src.health_monitor import ErrorClassifier, ErrorType, HealthMonitor
 
 # Test Error Classifier
 print("=" * 50)
@@ -59,7 +61,7 @@ for i in range(4):
 
 result = hm.check_tool("test_api")
 print(f"   Tool allowed after 4 system errors: {result['allowed']}")
-if not result['allowed']:
+if not result["allowed"]:
     print(f"   Retry after: {result.get('retry_after', 'N/A')}s")
 
 # Test recovery

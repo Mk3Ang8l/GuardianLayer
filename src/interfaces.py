@@ -2,12 +2,14 @@
 Interfaces for GuardianLayer Dependency Injection.
 Allows users to bring their own Storage (DB) and Cache backends.
 """
+
 from abc import ABC, abstractmethod
-from typing import Dict, Any, Optional, List
+from typing import Any, Dict, Optional
+
 
 class CacheProvider(ABC):
     """Abstract interface for caching backends (Redis, Memcached, Memory, etc.)"""
-    
+
     @abstractmethod
     def get(self, key: str) -> Optional[Any]:
         """Retrieve a value by key."""
@@ -17,12 +19,12 @@ class CacheProvider(ABC):
     def set(self, key: str, value: Any, ttl: Optional[int] = None):
         """Store a value with optional TTL in seconds."""
         pass
-        
+
     @abstractmethod
     def delete(self, key: str):
         """Remove a value."""
         pass
-    
+
     @abstractmethod
     def get_stats(self) -> Dict[str, Any]:
         """Return implementation-specific stats (hits, misses, size)."""
@@ -68,7 +70,7 @@ class StorageProvider(ABC):
         Returns: {'successes': int, 'failures': int}
         """
         pass
-    
+
     @abstractmethod
     def close(self):
         """Close connection."""
@@ -77,7 +79,7 @@ class StorageProvider(ABC):
 
 class AsyncCacheProvider(ABC):
     """Async version of CacheProvider interface"""
-    
+
     @abstractmethod
     async def get(self, key: str) -> Optional[Any]:
         """Retrieve a value by key."""
@@ -87,12 +89,12 @@ class AsyncCacheProvider(ABC):
     async def set(self, key: str, value: Any, ttl: Optional[int] = None):
         """Store a value with optional TTL in seconds."""
         pass
-        
+
     @abstractmethod
     async def delete(self, key: str):
         """Remove a value."""
         pass
-    
+
     @abstractmethod
     async def get_stats(self) -> Dict[str, Any]:
         """Return implementation-specific stats (hits, misses, size)."""
@@ -116,7 +118,9 @@ class AsyncStorageProvider(ABC):
         pass
 
     @abstractmethod
-    async def update_best_practice(self, fingerprint: str, tool_name: str, success: bool, call_data: str):
+    async def update_best_practice(
+        self, fingerprint: str, tool_name: str, success: bool, call_data: str
+    ):
         """
         Update the 'collective intelligence' or best practices record.
         Should handle incrementing counters and updating last_success_data.
@@ -138,7 +142,7 @@ class AsyncStorageProvider(ABC):
         Returns: {'successes': int, 'failures': int}
         """
         pass
-    
+
     @abstractmethod
     async def close(self):
         """Close connection."""

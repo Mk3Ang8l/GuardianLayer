@@ -1,12 +1,10 @@
 """Test script for Metrics Collector"""
-import sys
-import time
-from pathlib import Path
 
-sys.path.insert(0, 'c:/Users/julien/GuardianLayer')
+import sys
+
+sys.path.insert(0, "c:/Users/julien/GuardianLayer")
 
 from src.guardian import GuardianLayer
-from src.experience_layer import ExperienceLayer
 
 print("=" * 50)
 print("Testing Metrics & Observability")
@@ -27,8 +25,8 @@ assert result["allowed"] == False, "Detailed check: Loop should be blocked"
 
 metrics = guardian.get_metrics()
 print(f"   ROI Stats: {metrics['roi']}")
-prevented = metrics['roi']['protection_events']['loops_prevented']
-tokens = metrics['roi']['estimated_savings']['tokens_saved']
+prevented = metrics["roi"]["protection_events"]["loops_prevented"]
+tokens = metrics["roi"]["estimated_savings"]["tokens_saved"]
 print(f"   Prevented: {prevented}")
 print(f"   Tokens saved: {tokens}")
 
@@ -38,19 +36,19 @@ print("    Loop ROI tracking works")
 
 # 2. Test Component Aggregation
 print("\n2. Testing Component Aggregation:")
-assert 'loop_detection' in metrics, "Should have loop metrics"
-assert 'tool_health' in metrics, "Should have health metrics"
-assert 'session' in metrics, "Should have session metrics"
+assert "loop_detection" in metrics, "Should have loop metrics"
+assert "tool_health" in metrics, "Should have health metrics"
+assert "session" in metrics, "Should have session metrics"
 
 print(f"   Session ID: {metrics['session'].get('session_id')}")
-assert metrics['session'].get('session_id') is not None
+assert metrics["session"].get("session_id") is not None
 print("    Aggregation works")
 
 # 3. Test Reset
 print("\n3. Testing Metrics Reset:")
 guardian.reset()
 new_metrics = guardian.get_metrics()
-new_prevented = new_metrics['roi']['protection_events']['loops_prevented']
+new_prevented = new_metrics["roi"]["protection_events"]["loops_prevented"]
 print(f"   Prevented after reset: {new_prevented}")
 assert new_prevented == 0, "Metrics should be reset"
 

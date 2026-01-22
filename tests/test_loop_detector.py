@@ -1,6 +1,8 @@
 """Test script for LoopDetector v2"""
+
 import sys
-sys.path.insert(0, 'c:/Users/julien/GuardianLayer')
+
+sys.path.insert(0, "c:/Users/julien/GuardianLayer")
 
 from src.LoopDetector import LoopDetector
 
@@ -44,23 +46,23 @@ call_c = {"tool": "database", "arguments": {"sql": "SELECT * FROM users"}}
 # To test excessive repeats, we need to call C multiple times with enough
 # different calls in between to not trigger SHORT_CYCLE
 calls_between = [
-    {"tool": f"tool_{i}", "arguments": {"x": i}} 
+    {"tool": f"tool_{i}", "arguments": {"x": i}}
     for i in range(5)  # 5 different tools between each C call
 ]
 
 for attempt in range(4):  # 4 attempts at C (max_repeats=2, so 3rd should fail)
     is_loop_c, reason_c = detector.check(call_c)
     print(f"   Call C attempt {attempt+1}: is_loop={is_loop_c}, reason={reason_c}")
-    
+
     if is_loop_c:
         break  # Stop if blocked
-    
+
     # Add different calls to avoid cycle detection
     for filler in calls_between:
         detector.check(filler)
 
 # Either SHORT_CYCLE or REPEATED should block - both are valid loop detection
-assert is_loop_c, f"Should detect some loop pattern"
+assert is_loop_c, "Should detect some loop pattern"
 print(f"   Blocked by: {reason_c}")
 
 # Test 6: Check metrics

@@ -17,6 +17,13 @@ The format is based on "Keep a Changelog" and this project follows [Semantic Ver
 
 ---
 
+## [2.0.3] - 2026-01-22
+
+### Fixed
+- Critical `IndentationError` in tests (`test_async_flow.py`).
+- Comprehensive linting fixes across the codebase (Black/Flake8 compatibility).
+- Resolved `asyncio` import issues and bare `except` clauses.
+
 ## [2.0.2] - 2026-01-22
 
 ### Fixed

@@ -55,7 +55,8 @@ print("    Process cache works (Cross-session memory)")
 # 3. Test Global Persistence (L3)
 print("\n3. Testing Global Persistence (L3):")
 # Close and reopen to simulate restart
-exp.close()
+import asyncio
+asyncio.run(exp.close())
 del exp
 
 print("   Restarting ExperienceLayer...")

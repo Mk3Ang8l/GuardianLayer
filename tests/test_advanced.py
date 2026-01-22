@@ -7,7 +7,7 @@ from src.LoopDetector import LoopDetector
 
 def test_immediate_repeat():
     detector = LoopDetector()
-    call = {"tool": "search", "query": "test"}
+    call = {"tool": "search", "arguments": {"query": "test"}}
 
     # First call OK
     assert detector.check(call) == (False, None)
@@ -20,8 +20,8 @@ def test_immediate_repeat():
 
 def test_different_calls():
     detector = LoopDetector()
-    call1 = {"tool": "search", "query": "A"}
-    call2 = {"tool": "search", "query": "B"}
+    call1 = {"tool": "search", "arguments": {"query": "A"}}
+    call2 = {"tool": "search", "arguments": {"query": "B"}}
 
     # Two differents calls = OK
     assert detector.check(call1) == (False, None)
@@ -30,8 +30,8 @@ def test_different_calls():
 
 def test_cycle_detection():
     detector = LoopDetector()
-    call_a = {"tool": "search", "query": "A"}
-    call_b = {"tool": "scrape", "url": "B"}
+    call_a = {"tool": "search", "arguments": {"query": "A"}}
+    call_b = {"tool": "scrape", "arguments": {"url": "B"}}
 
     detector.check(call_a)  # A
     detector.check(call_b)  # B

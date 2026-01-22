@@ -34,9 +34,6 @@ class ToolSchema:
         return hashlib.sha256(content.encode()).hexdigest()[:16]
 
 
-
-
-
 class MCPFacade:
     """
     Universal adapter for MCP tool schemas.

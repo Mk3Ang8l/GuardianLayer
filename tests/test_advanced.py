@@ -32,11 +32,13 @@ def test_cycle_detection():
     detector = LoopDetector()
     call_a = {"tool": "search", "arguments": {"query": "A"}}
     call_b = {"tool": "scrape", "arguments": {"url": "B"}}
+    call_c = {"tool": "db", "arguments": {"sql": "C"}}
 
     detector.check(call_a)  # A
     detector.check(call_b)  # B
-    detector.check(call_a)  # A (cycle A→B→A)
+    detector.check(call_c)  # C
 
-    is_loop, reason = detector.check(call_b)
+    # A -> B -> C -> A (cycle detected)
+    is_loop, reason = detector.check(call_a)
     assert is_loop == True
     assert "CYCLE" in reason

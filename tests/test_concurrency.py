@@ -39,7 +39,9 @@ def test_concurrent_checks_thread_safe():
     try:
         with ThreadPoolExecutor(max_workers=50) as executor:
             futures = [executor.submit(worker, i) for i in range(total_calls)]
-            results = [f.result() for f in futures]
+            # Wait for all
+            for f in futures:
+                f.result()
 
         # Verify metrics
         metrics = guardian.get_metrics()
@@ -50,7 +52,6 @@ def test_concurrent_checks_thread_safe():
 
         # Check health monitor consistency
         health = guardian.health_monitor.get_all_health()
-        total_recorded_calls = sum(h.total_calls for h in guardian.health_monitor.tools.values())
 
         # Note: Health monitor updates happen in report_result
         # Just ensure no exceptions occurred and data looks plausible

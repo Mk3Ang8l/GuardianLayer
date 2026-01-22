@@ -95,9 +95,6 @@ async def test_async_data_flow():
     assert check_res["allowed"] is True
 
 
-if __name__ == "__main__":
-    import asyncio
-
     try:
         asyncio.run(test_check_async_does_not_block())
         print("Non-blocking test passed")

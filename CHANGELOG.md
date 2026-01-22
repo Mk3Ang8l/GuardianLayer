@@ -17,6 +17,12 @@ The format is based on "Keep a Changelog" and this project follows [Semantic Ver
 
 ---
 
+## [2.0.4] - 2026-01-22
+
+### Fixed
+- Fixed GitHub Actions permissions to allow automated Release creation.
+- (Note: v2.0.3 was published to PyPI but GitHub Release failed).
+
 ## [2.0.3] - 2026-01-22
 
 ### Fixed

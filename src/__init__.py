@@ -1,6 +1,6 @@
 """AI Loop Guardian v2.0 - Meta-Cognition Layer for AI Agents"""
 
-__version__ = "2.0.3"
+__version__ = "2.0.4"
 
 from .advice_generator import AdviceContext, AdviceGenerator, AdviceStyle
 from .cache import AdviceCache, CacheStats, HashCache, LRUCache, ValidationCache

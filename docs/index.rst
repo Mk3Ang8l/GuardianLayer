@@ -342,7 +342,7 @@ Support and Community
 
 * **Documentation**: This site
 * **GitHub Issues**: `Report bugs or request features <https://github.com/Mk3Ang8l/GuardianLayer/issues>`_
-* **GitHub Discussions**: `Ask questions and share ideas <https://github.com/Mk3Ang8l/GuardianLayer/discussions>`_
+
 * **Examples**: Browse the ``examples/`` directory
 
 Performance Tips

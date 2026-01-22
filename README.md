@@ -280,7 +280,7 @@ Your support helps maintain and improve GuardianLayer!
 
 - **Documentation**: [https://github.com/Mk3Ang8l/GuardianLayer](https://github.com/Mk3Ang8l/GuardianLayer)
 - **Issues**: [GitHub Issues](https://github.com/Mk3Ang8l/GuardianLayer/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/Mk3Ang8l/GuardianLayer/discussions)
+
 
 ---
 

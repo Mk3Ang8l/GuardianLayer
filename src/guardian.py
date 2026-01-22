@@ -132,6 +132,18 @@ class GuardianLayer:
         """
         return self.mcp_facade.ingest_mcp_tools(mcp_tools)
 
+    def register_mcp_tools(self, mcp_tools: List[Dict[str, Any]]) -> int:
+        """
+        Alias for ingest_tools() for backward compatibility.
+
+        Args:
+            mcp_tools: List of tool definitions from MCP
+
+        Returns:
+            Number of tools registered
+        """
+        return self.ingest_tools(mcp_tools)
+
     def register_hook(self, tool_name: str, hook: Callable[[Dict], Optional[str]]):
         """Register a custom validation hook for a specific tool"""
         self.mcp_facade.register_hook(tool_name, hook)

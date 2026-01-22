@@ -63,12 +63,12 @@ class InMemoryCacheProvider(CacheProvider):
 
     def __init__(self, max_size: int = 1000, default_ttl: int = 3600):
         self._cache = LRUCache(max_size=max_size, default_ttl=default_ttl)
+        self._lock = Lock()
 
     def get(self, key: str) -> Optional[Any]:
         return self._cache.get(key)
 
     def set(self, key: str, value: Any, ttl: Optional[int] = None):
-        self._cache.set(key, value, ttl)
         with self._lock:
             # Note: LRUCache handles default_ttl internally if not overridden,
             # but current implementation might ignore per-call ttl depending on LRUCache structure.

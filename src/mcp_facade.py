@@ -10,6 +10,9 @@ import logging
 from dataclasses import dataclass, field
 from typing import Any, Callable, Dict, List, Optional
 
+from .interfaces import CacheProvider
+from .providers import InMemoryCacheProvider
+
 logger = logging.getLogger(__name__)
 
 
@@ -31,10 +34,7 @@ class ToolSchema:
         return hashlib.sha256(content.encode()).hexdigest()[:16]
 
 
-from .interfaces import CacheProvider
-from .providers import InMemoryCacheProvider
 
-logger = logging.getLogger(__name__)
 
 
 class MCPFacade:

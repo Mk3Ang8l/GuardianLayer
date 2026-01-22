@@ -39,7 +39,7 @@ async def test_loop_detector_async():
     # First call should be allowed
     is_loop, reason = await detector.check_async(call)
     assert is_loop == False
-    assert reason == None
+    assert reason is None
 
     # Second identical call should be blocked
     is_loop, reason = await detector.check_async(call)

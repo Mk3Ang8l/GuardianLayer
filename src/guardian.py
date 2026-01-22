@@ -423,7 +423,7 @@ class GuardianLayer:
                 # Fallback if no loop
                 try:
                     asyncio.run(self.experience.close())
-                except:
+                except Exception:
                     pass
 
     async def close_async(self):

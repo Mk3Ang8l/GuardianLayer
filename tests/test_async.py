@@ -121,6 +121,13 @@ async def test_async_provider_operations():
             "error": None,
             "call_data": '{"test": "data"}',
         }
+            "call_data": '{"test": "data"}',
+        }
+    )
+
+    # Manually update best practices stats (since we are testing provider directly)
+    await storage.update_best_practice(
+        fingerprint="test_fp", tool_name="test_tool", success=True, call_data='{"test": "data"}'
     )
 
     # Test getting stats

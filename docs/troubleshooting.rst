@@ -571,7 +571,7 @@ Getting Help
 
 If you're still experiencing issues:
 
-1. **Check GitHub Issues**: `https://github.com/your-org/GuardianLayer/issues <https://github.com/your-org/GuardianLayer/issues>`_
+1. **Check GitHub Issues**: `https://github.com/Mk3Ang8l/GuardianLayer/issues <https://github.com/Mk3Ang8l/GuardianLayer/issues>`_
 2. **Enable Debug Logging**: Capture detailed logs and include in issue report
 3. **Provide Minimal Reproduction**: Create a minimal example that reproduces the issue  
 4. **Check Documentation**: Review :doc:`architecture`, :doc:`configuration`, and :doc:`integration`

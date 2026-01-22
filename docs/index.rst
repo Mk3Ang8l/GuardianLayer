@@ -84,7 +84,7 @@ Or install from source (development):
 
 .. code-block:: console
 
-   git clone https://github.com/your-org/GuardianLayer.git
+   git clone https://github.com/Mk3Ang8l/GuardianLayer.git
    cd GuardianLayer
    pip install -e '.[dev]'
 
@@ -341,8 +341,8 @@ Support and Community
 ---------------------
 
 * **Documentation**: This site
-* **GitHub Issues**: `Report bugs or request features <https://github.com/your-org/GuardianLayer/issues>`_
-* **GitHub Discussions**: `Ask questions and share ideas <https://github.com/your-org/GuardianLayer/discussions>`_
+* **GitHub Issues**: `Report bugs or request features <https://github.com/Mk3Ang8l/GuardianLayer/issues>`_
+* **GitHub Discussions**: `Ask questions and share ideas <https://github.com/Mk3Ang8l/GuardianLayer/discussions>`_
 * **Examples**: Browse the ``examples/`` directory
 
 Performance Tips

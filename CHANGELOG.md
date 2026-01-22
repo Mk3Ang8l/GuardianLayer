@@ -17,6 +17,16 @@ The format is based on "Keep a Changelog" and this project follows [Semantic Ver
 
 ---
 
+## [2.0.2] - 2026-01-22
+
+### Fixed
+- Corrected package metadata (URLs, Author info).
+
+## [2.0.1] - 2026-01-22
+
+### Changed
+- Minor package updates and metadata refresh.
+
 ## [2.0.0] - 2026-01-20
 
 ### Added

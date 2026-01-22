@@ -1,6 +1,6 @@
 """AI Loop Guardian v2.0 - Meta-Cognition Layer for AI Agents"""
 
-__version__ = "2.0.0"
+__version__ = "2.0.2"
 
 from .LoopDetector import LoopDetector, LoopMetrics
 

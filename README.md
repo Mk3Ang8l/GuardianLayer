@@ -1,8 +1,8 @@
 # GuardianLayer
 
 [![PyPI](https://img.shields.io/pypi/v/GuardianLayer.svg)](https://pypi.org/project/GuardianLayer/)
-[![Tests](https://github.com/your-org/GuardianLayer/actions/workflows/ci.yml/badge.svg)](https://github.com/your-org/GuardianLayer/actions)
-[![Docs](https://img.shields.io/badge/docs-Sphinx-blue)](https://your-docs-url)
+[![Tests](https://github.com/Mk3Ang8l/GuardianLayer/actions/workflows/ci.yml/badge.svg)](https://github.com/Mk3Ang8l/GuardianLayer/actions)
+[![Docs](https://img.shields.io/badge/docs-Sphinx-blue)](https://github.com/Mk3Ang8l/GuardianLayer)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
 
@@ -43,7 +43,7 @@ pip install GuardianLayer
 Or install from source for development:
 
 ```bash
-git clone https://github.com/your-org/GuardianLayer.git
+git clone https://github.com/Mk3Ang8l/GuardianLayer.git
 cd GuardianLayer
 pip install -e '.[dev]'
 ```
@@ -243,7 +243,7 @@ We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guid
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-org/GuardianLayer.git
+git clone https://github.com/Mk3Ang8l/GuardianLayer.git
 cd GuardianLayer
 
 # Install development dependencies
@@ -278,9 +278,9 @@ Your support helps maintain and improve GuardianLayer!
 
 ## 📞 Support
 
-- **Documentation**: [https://your-docs-url](https://your-docs-url)
-- **Issues**: [GitHub Issues](https://github.com/your-org/GuardianLayer/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/your-org/GuardianLayer/discussions)
+- **Documentation**: [https://github.com/Mk3Ang8l/GuardianLayer](https://github.com/Mk3Ang8l/GuardianLayer)
+- **Issues**: [GitHub Issues](https://github.com/Mk3Ang8l/GuardianLayer/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/Mk3Ang8l/GuardianLayer/discussions)
 
 ---
 

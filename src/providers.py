@@ -236,8 +236,8 @@ class AsyncSQLiteStorageProvider(AsyncStorageProvider):
                 success_count INTEGER DEFAULT 0,
                 failure_count INTEGER DEFAULT 0,
                 last_success_data TEXT
-                -- Note: 'last_updated' was in old schema but not in new Model. 
-                -- We'll omit it to stay consistent with SQLAlchemy model 
+                -- Note: 'last_updated' was in old schema but not in new Model.
+                -- We'll omit it to stay consistent with SQLAlchemy model
                 -- or add it to Model if needed. For now, strict match.
             )
         """)
@@ -305,7 +305,7 @@ class AsyncSQLiteStorageProvider(AsyncStorageProvider):
 
         cursor = await self._conn.execute(
             """
-            SELECT last_success_data FROM best_practices 
+            SELECT last_success_data FROM best_practices
             WHERE tool_name = ? AND success_count > 0
             ORDER BY success_count DESC
             LIMIT 1
@@ -326,7 +326,7 @@ class AsyncSQLiteStorageProvider(AsyncStorageProvider):
 
         cursor = await self._conn.execute(
             """
-            SELECT 
+            SELECT
                 SUM(success_count),
                 SUM(failure_count)
             FROM best_practices WHERE tool_name = ?

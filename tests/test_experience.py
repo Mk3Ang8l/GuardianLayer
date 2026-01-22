@@ -75,7 +75,7 @@ assert reliability == 0.5, "Should range 50% (1 success, 1 failure)"
 
 print("    Global persistence works")
 
-exp_new.close()
+asyncio.run(exp_new.close())
 # Cleanup
 if os.path.exists(DB_PATH):
     os.remove(DB_PATH)

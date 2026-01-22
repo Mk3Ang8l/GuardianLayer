@@ -381,3 +381,12 @@ class AsyncSQLiteStorageProvider(AsyncStorageProvider):
         if self._conn:
             await self._conn.close()
             self._conn = None
+
+    async def __aenter__(self):
+        await self.init()
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        await self.close()
+        if exc_type:
+            logger.error(f"AsyncStorage error: {exc_val}")

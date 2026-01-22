@@ -24,7 +24,12 @@ from sqlalchemy import (
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 from .cache import LRUCache
-from .interfaces import AsyncStorageProvider, CacheProvider, StorageProvider
+from .interfaces import (
+    AsyncCacheProvider,
+    AsyncStorageProvider,
+    CacheProvider,
+    StorageProvider,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -78,6 +83,36 @@ class InMemoryCacheProvider(CacheProvider):
         with self._lock:
             s = self._cache.stats
             return {"hits": s.hits, "misses": s.misses, "size": self._cache.size()}
+
+
+class AsyncInMemoryCacheProvider(AsyncCacheProvider):
+    """Async wrapper around LRUCache"""
+
+    def __init__(self, max_size: int = 1000, default_ttl: int = 3600):
+        self._cache = LRUCache(max_size=max_size, default_ttl=default_ttl)
+
+    async def get(self, key: str) -> Optional[Any]:
+        return self._cache.get(key)
+
+    async def set(self, key: str, value: Any, ttl: Optional[int] = None):
+        self._cache.set(key, value, ttl)
+
+    async def delete(self, key: str):
+        self._cache.delete(key)
+
+    async def get_stats(self) -> Dict[str, Any]:
+        s = self._cache.stats
+        return {"hits": s.hits, "misses": s.misses, "size": self._cache.size()}
+
+    async def close(self):
+        pass
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if exc_type:
+            logger.error(f"AsyncCache error: {exc_val}")
 
 
 class SQLiteStorageProvider(StorageProvider):

@@ -121,8 +121,7 @@ async def test_async_provider_operations():
             "error": None,
             "call_data": '{"test": "data"}',
         }
-            "call_data": '{"test": "data"}',
-        }
+
     )
 
     # Manually update best practices stats (since we are testing provider directly)

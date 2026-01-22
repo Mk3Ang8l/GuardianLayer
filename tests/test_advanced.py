@@ -1,4 +1,4 @@
-from LoopDetector import LoopDetector
+from src.LoopDetector import LoopDetector
 
 
 def test_immediate_repeat():

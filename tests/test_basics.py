@@ -1,4 +1,4 @@
-from LoopDetector import LoopDetector
+from src.LoopDetector import LoopDetector
 
 detector = LoopDetector()
 

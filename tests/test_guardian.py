@@ -213,7 +213,7 @@ class TestLoopDetector:
         # Clear history to prevent immediate/cycle detection logic from interfering
         # We only want to test the repeat_counts logic here
         detector.history.clear()
-        
+
         detector.check(call)  # 2nd
         detector.history.clear()
 

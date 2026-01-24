@@ -8,8 +8,8 @@ from typing import Any, Dict, Optional
 
 sys.path.insert(0, "c:/Users/julien/GuardianLayer")
 
-from src.guardian import GuardianLayer
-from src.interfaces import CacheProvider, StorageProvider
+from GuardianLayer.guardian import GuardianLayer
+from GuardianLayer.interfaces import CacheProvider, StorageProvider
 
 print("=" * 50)
 print("Testing Custom Providers (BYO-DB/Cache)")

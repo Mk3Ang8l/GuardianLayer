@@ -4,7 +4,7 @@ import sys
 
 sys.path.insert(0, "c:/Users/julien/GuardianLayer")
 
-from src.health_monitor import ErrorClassifier, ErrorType, HealthMonitor
+from GuardianLayer.health_monitor import ErrorClassifier, ErrorType, HealthMonitor
 
 # Test Error Classifier
 print("=" * 50)

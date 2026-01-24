@@ -7,13 +7,27 @@ The format is based on "Keep a Changelog" and this project follows [Semantic Ver
 ## [Unreleased]
 
 ### Added
-- TODO: list upcoming features here.
+-
 
 ### Changed
-- TODO: list upcoming breaking or non-breaking changes here.
+-
 
 ### Fixed
-- TODO: list upcoming bug fixes here.
+-
+
+---
+
+## [2.0.5] - 2026-01-24
+
+### Added
+- Standardized package structure following "src layout" (`src/GuardianLayer/`) for robust PyPI distribution and reliable imports.
+- New `generate_async` method in `AdviceGenerator` for non-blocking advice retrieval.
+
+### Fixed
+- Resolved critical `RuntimeWarning` in `ExperienceLayer` where async storage callbacks were not being awaited, ensuring data persistence reliability.
+- Fixed `ImportError` on fresh installs by ensuring proper package hierarchy.
+- Standardized async dispatch logic across all layers (Health, Loop, Experience, Advice).
+- Updated comprehensive test suite (31 tests) to reflect new package structure; achieved 100% pass rate with zero warnings.
 
 ---
 

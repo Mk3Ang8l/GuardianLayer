@@ -314,8 +314,8 @@ class GuardianLayer:
             similar_success=similar_success,
             tool_reliability=tool_reliability,
         )
-        # Advice generation is CPU bound / in-memory (unless custom resolver is slow/async, but here it's sync)
-        generated_advice = self.advice_generator.generate(advice_context)
+        # v2.0: True async advice generation
+        generated_advice = await self.advice_generator.generate_async(advice_context)
         if generated_advice:
             result["advice"] = generated_advice
 

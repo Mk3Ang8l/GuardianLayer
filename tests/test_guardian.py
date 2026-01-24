@@ -8,10 +8,10 @@ import tempfile
 import pytest
 
 # Import the main class
-from src.guardian import GuardianLayer
-from src.health_monitor import HealthMonitor
-from src.LoopDetector import LoopDetector
-from src.mcp_facade import MCPFacade
+from GuardianLayer.guardian import GuardianLayer
+from GuardianLayer.health_monitor import HealthMonitor
+from GuardianLayer.LoopDetector import LoopDetector
+from GuardianLayer.mcp_facade import MCPFacade
 
 
 @pytest.fixture

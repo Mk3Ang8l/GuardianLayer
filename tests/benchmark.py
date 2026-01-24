@@ -3,8 +3,8 @@ import os
 import statistics
 import time
 
-from src.guardian import GuardianLayer
-from src.providers import AsyncSQLiteStorageProvider, SQLiteStorageProvider
+from GuardianLayer.guardian import GuardianLayer
+from GuardianLayer.providers import AsyncSQLiteStorageProvider, SQLiteStorageProvider
 
 
 def run_sync_benchmark(count=100):

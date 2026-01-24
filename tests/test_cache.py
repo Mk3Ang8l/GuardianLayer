@@ -4,8 +4,8 @@ import sys
 
 sys.path.insert(0, "c:/Users/julien/GuardianLayer")
 
-from src.advice_generator import AdviceContext
-from src.cache import AdviceCache, HashCache, LRUCache, ValidationCache
+from GuardianLayer.advice_generator import AdviceContext
+from GuardianLayer.cache import AdviceCache, HashCache, LRUCache, ValidationCache
 
 print("=" * 50)
 print("Testing Cache System")

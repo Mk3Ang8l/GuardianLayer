@@ -2,8 +2,8 @@ import os
 import threading
 from concurrent.futures import ThreadPoolExecutor
 
-from src.guardian import GuardianLayer
-from src.health_monitor import HealthMonitor
+from GuardianLayer.guardian import GuardianLayer
+from GuardianLayer.health_monitor import HealthMonitor
 
 
 def test_concurrent_checks_thread_safe():

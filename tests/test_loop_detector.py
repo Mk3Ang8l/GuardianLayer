@@ -4,7 +4,7 @@ import sys
 
 sys.path.insert(0, "c:/Users/julien/GuardianLayer")
 
-from src.LoopDetector import LoopDetector
+from GuardianLayer.LoopDetector import LoopDetector
 
 print("=" * 50)
 print("Testing LoopDetector v2 (Hash-based)")

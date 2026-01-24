@@ -5,7 +5,7 @@ import sys
 
 sys.path.insert(0, "c:/Users/julien/GuardianLayer")
 
-from src.experience_layer import ExperienceLayer
+from GuardianLayer.experience_layer import ExperienceLayer
 
 DB_PATH = "test_experience.db"
 

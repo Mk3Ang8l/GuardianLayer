@@ -4,7 +4,7 @@ import sys
 
 sys.path.insert(0, "c:/Users/julien/GuardianLayer")
 
-from src.guardian import GuardianLayer
+from GuardianLayer.guardian import GuardianLayer
 
 print("=" * 50)
 print("Testing Metrics & Observability")

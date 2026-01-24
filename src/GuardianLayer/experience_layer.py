@@ -128,8 +128,8 @@ class ExperienceLayer:
         else:
             self._process_failures[fingerprint] = self._process_failures.get(fingerprint, 0) + 1
 
-        # 3. Update Global Storage
-        if self.storage:
+        # 3. Update Global Storage (Sync-compatible only)
+        if self.storage and not self._is_async:
             try:
                 # Log incident
                 incident_data = {
@@ -240,10 +240,10 @@ class ExperienceLayer:
     async def log_incident_async(self, incident_data: Dict[str, Any]):
         """Async version of log_incident"""
         if self.storage:
-            if hasattr(self.storage, "log_incident_async"):
-                await self.storage.log_incident_async(incident_data)
+            if self._is_async:
+                await self.storage.log_incident(incident_data)
             else:
-                # Fallback to sync
+                # Sync provider
                 self.storage.log_incident(incident_data)
 
     async def update_best_practice_async(
@@ -251,36 +251,41 @@ class ExperienceLayer:
     ):
         """Async version of update_best_practice"""
         if self.storage:
-            if hasattr(self.storage, "update_best_practice_async"):
-                await self.storage.update_best_practice_async(
-                    fingerprint, tool_name, success, call_data
-                )
+            if self._is_async:
+                await self.storage.update_best_practice(fingerprint, tool_name, success, call_data)
             else:
-                # Fallback to sync
+                # Sync provider
                 self.storage.update_best_practice(fingerprint, tool_name, success, call_data)
 
     async def find_similar_success_async(self, tool_name: str) -> Optional[Dict]:
         """Async version of find_similar_success"""
         # 1. Process Cache (Sync access is fine mainly, but should be careful if massive)
-        # For now, process cache is assumed purely in-memory and fast
         for fp, data in self._process_cache.items():
             if data.get("tool") == tool_name and data.get("success"):
                 return data.get("call")
 
         # 2. Global Storage
-        if self.storage and self._is_async:
-            result = await self.storage.get_best_practice(tool_name)
+        if self.storage:
+            if self._is_async:
+                result = await self.storage.get_best_practice(tool_name)
+            else:
+                result = self.storage.get_best_practice(tool_name)
+                
             if result and result.get("last_success_data"):
                 return json.loads(result["last_success_data"])
         return None
 
     async def get_tool_reliability_async(self, tool_name: str) -> Optional[float]:
         """Async version of tool reliability check"""
-        if not self.storage or not self._is_async:
+        if not self.storage:
             return None
 
         try:
-            stats = await self.storage.get_tool_stats(tool_name)
+            if self._is_async:
+                stats = await self.storage.get_tool_stats(tool_name)
+            else:
+                stats = self.storage.get_tool_stats(tool_name)
+                
             successes = stats.get("successes", 0)
             failures = stats.get("failures", 0)
             total = successes + failures
@@ -291,15 +296,10 @@ class ExperienceLayer:
     async def get_tool_stats_async(self, tool_name: str) -> Dict[str, int]:
         """Async version of get_tool_stats"""
         if self.storage:
-            if hasattr(
-                self.storage, "get_tool_stats_async"
-            ):  # Actually checking interface might be better
+            if self._is_async:
                 return await self.storage.get_tool_stats(tool_name)
-                # Note: In AsyncStorageProvider interface, method is get_tool_stats but it is async
-                # The previous implementation tried to check 'get_tool_stats_async' which doesnt exist on provider
-                # It exists on this layer though.
-            elif self._is_async:
-                return await self.storage.get_tool_stats(tool_name)
+            else:
+                return self.storage.get_tool_stats(tool_name)
 
         return {"successes": 0, "failures": 0}
 

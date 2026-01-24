@@ -7,9 +7,9 @@ Now with caching for performance optimization.
 import logging
 from dataclasses import dataclass
 from enum import Enum
-from typing import Callable, Dict, Optional
+from typing import Callable, Dict, List, Optional, Any
 
-from .interfaces import CacheProvider
+from .interfaces import AsyncCacheProvider, CacheProvider
 from .providers import InMemoryCacheProvider
 
 logger = logging.getLogger(__name__)
@@ -33,7 +33,6 @@ class AdviceContext:
     similar_success: Optional[Dict]
     tool_reliability: Optional[float]
 
-
 class AdviceGenerator:
     """
     Generates prompt injections based on the agent's experiences.
@@ -56,6 +55,7 @@ class AdviceGenerator:
             if cache_provider
             else InMemoryCacheProvider(max_size=500, default_ttl=3600)
         )
+        self._is_async = isinstance(self._cache, AsyncCacheProvider)
 
     def set_style(self, style: AdviceStyle):
         """Change the advice formatting style"""
@@ -79,8 +79,8 @@ class AdviceGenerator:
         """
         cache_key = self._generate_cache_key(context)
 
-        # Check cache first
-        if self._cache:
+        # Check cache first (Sync-compatible only)
+        if self._cache and not self._is_async:
             cached = self._cache.get(cache_key)
             if cached is not None:
                 return cached
@@ -89,9 +89,37 @@ class AdviceGenerator:
         advice = self._generate_advice(context)
 
         # Cache the result (v2.0)
+        if self._cache and advice and not self._is_async:
+            self._cache.set(cache_key, advice)
+
+        return advice
+
+    async def generate_async(self, context: AdviceContext) -> str:
+        """
+        True async version of generate.
+        Handles non-blocking cache lookups.
+        """
+        cache_key = self._generate_cache_key(context)
+
+        # Check cache
+        if self._cache:
+            if self._is_async:
+                cached = await self._cache.get(cache_key)
+            else:
+                cached = self._cache.get(cache_key)
+                
+            if cached is not None:
+                return cached
+
+        # Generate advice
+        advice = self._generate_advice(context)
+
         # Cache the result
         if self._cache and advice:
-            self._cache.set(cache_key, advice)
+            if self._is_async:
+                await self._cache.set(cache_key, advice)
+            else:
+                self._cache.set(cache_key, advice)
 
         return advice
 

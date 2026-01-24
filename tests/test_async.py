@@ -5,8 +5,8 @@ Async tests for GuardianLayer
 
 import pytest
 
-from src.guardian import GuardianLayer
-from src.providers import AsyncInMemoryCacheProvider, AsyncSQLiteStorageProvider
+from GuardianLayer.guardian import GuardianLayer
+from GuardianLayer.providers import AsyncInMemoryCacheProvider, AsyncSQLiteStorageProvider
 
 
 @pytest.mark.asyncio
@@ -30,7 +30,7 @@ async def test_guardian_async_basic():
 @pytest.mark.asyncio
 async def test_loop_detector_async():
     """Test async loop detection"""
-    from src.LoopDetector import LoopDetector
+    from GuardianLayer.LoopDetector import LoopDetector
 
     detector = LoopDetector(max_history=5, max_repeats=2)
 
@@ -50,7 +50,7 @@ async def test_loop_detector_async():
 @pytest.mark.asyncio
 async def test_mcp_facade_async():
     """Test async MCP validation"""
-    from src.mcp_facade import MCPFacade
+    from GuardianLayer.mcp_facade import MCPFacade
 
     facade = MCPFacade()
 
@@ -83,7 +83,7 @@ async def test_mcp_facade_async():
 @pytest.mark.asyncio
 async def test_health_monitor_async():
     """Test async health monitoring"""
-    from src.health_monitor import HealthMonitor
+    from GuardianLayer.health_monitor import HealthMonitor
 
     monitor = HealthMonitor()
 

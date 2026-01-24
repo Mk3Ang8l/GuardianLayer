@@ -4,8 +4,8 @@ import time
 
 import pytest
 
-from src.guardian import GuardianLayer
-from src.providers import AsyncSQLiteStorageProvider
+from GuardianLayer.guardian import GuardianLayer
+from GuardianLayer.providers import AsyncSQLiteStorageProvider
 
 
 @pytest.mark.asyncio

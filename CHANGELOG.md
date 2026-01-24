@@ -19,7 +19,7 @@ The format is based on "Keep a Changelog" and this project follows [Semantic Ver
 
 ## [2.0.5] - 2026-01-24
 
-### Added
+### Addedd
 - Standardized package structure following "src layout" (`src/GuardianLayer/`) for robust PyPI distribution and reliable imports.
 - New `generate_async` method in `AdviceGenerator` for non-blocking advice retrieval.
 

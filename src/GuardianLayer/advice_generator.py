@@ -7,7 +7,7 @@ Now with caching for performance optimization.
 import logging
 from dataclasses import dataclass
 from enum import Enum
-from typing import Callable, Dict, List, Optional, Any
+from typing import Callable, Dict, Optional
 
 from .interfaces import AsyncCacheProvider, CacheProvider
 from .providers import InMemoryCacheProvider
@@ -32,6 +32,7 @@ class AdviceContext:
     last_error: Optional[str]
     similar_success: Optional[Dict]
     tool_reliability: Optional[float]
+
 
 class AdviceGenerator:
     """
@@ -107,7 +108,7 @@ class AdviceGenerator:
                 cached = await self._cache.get(cache_key)
             else:
                 cached = self._cache.get(cache_key)
-                
+
             if cached is not None:
                 return cached
 

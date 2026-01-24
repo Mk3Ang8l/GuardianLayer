@@ -270,7 +270,7 @@ class ExperienceLayer:
                 result = await self.storage.get_best_practice(tool_name)
             else:
                 result = self.storage.get_best_practice(tool_name)
-                
+
             if result and result.get("last_success_data"):
                 return json.loads(result["last_success_data"])
         return None
@@ -285,7 +285,7 @@ class ExperienceLayer:
                 stats = await self.storage.get_tool_stats(tool_name)
             else:
                 stats = self.storage.get_tool_stats(tool_name)
-                
+
             successes = stats.get("successes", 0)
             failures = stats.get("failures", 0)
             total = successes + failures

@@ -1,6 +1,8 @@
 # Contributing to GuardianLayer
 
-Thank you for your interest in contributing to GuardianLayer! We welcome bug reports, feature requests, documentation improvements, and pull requests. This document explains the project's contribution workflow, coding standards, testing, and release process so that contributions can be reviewed and merged efficiently.
+I would like to personally thank you for your interest in this project!
+we will make sure to look into your bugs report and feature requests
+but for now you can also check out the documentation. This document will show you how to behave correctly and contribute to the project.
 
 ## Table of contents
 
@@ -183,12 +185,3 @@ If you discover a security vulnerability, please disclose it privately. Open a p
 - For urgent fixes, maintainers may backport to supported branches.
 - Follow the same testing and review guidelines for backports.
 - Keep release notes and changelogs clear about which branches received security or bugfix patches.
-
----
-
-Thanks for helping make GuardianLayer better. If you'd like, I can also:
-- Add a `.github/ISSUE_TEMPLATE` or PR template.
-- Add pre-configured `pre-commit` hooks.
-- Prepare a GitHub Actions `publish.yml` workflow to automate PyPI releases on tag pushes.
-
-If you want any of these created, tell me which ones and I will prepare them.

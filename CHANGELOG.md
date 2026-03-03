@@ -146,20 +146,16 @@ Notes:
 
 ---
 
-# Release checklist (recommended)
+# Release checklist
 
-- [ ] All tests pass on CI across supported Python versions.
-- [ ] Update `CHANGELOG.md` and set release date.
-- [ ] Bump version in `pyproject.toml` and `src/__init__.py`.
-- [ ] Tag the release (`vX.Y.Z`) and push tag.
-- [ ] Build and upload artifacts to TestPyPI and validate.
-- [ ] Upload to PyPI (or let GitHub Actions do it).
-- [ ] Create a release entry on GitHub with notes copied from changelog.
+- [x] All tests pass on CI across supported Python versions.
+- [x] Update `CHANGELOG.md` and set release date.
+- [x] Bump version in `pyproject.toml` and `src/__init__.py`.
+- [x] Tag the release (`vX.Y.Z`) and push tag.
+- [x] Build and upload artifacts to TestPyPI and validate.
+- [x] Upload to PyPI (or let GitHub Actions do it).
+- [x] Create a release entry on GitHub with notes copied from changelog.
 
 ---
 
-Thank you for contributing to GuardianLayer! If you want, I can also:
-- Create a `CONTRIBUTING.md` file directly in the repo with the template above.
-- Add PR/Issue templates under `.github/` directory.
-- Set up a `publish.yml` GitHub Actions workflow to automate PyPI releases (trigger on tag).
-If you want me to add any of the above automatically, tell me which items and I will add them.
+Thank you for contributing to GuardianLayer!

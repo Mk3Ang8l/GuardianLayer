@@ -17,6 +17,7 @@ src/providers.py
 src/GuardianLayer.egg-info/PKG-INFO
 src/GuardianLayer.egg-info/SOURCES.txt
 src/GuardianLayer.egg-info/dependency_links.txt
+src/GuardianLayer.egg-info/not-zip-safe
 src/GuardianLayer.egg-info/requires.txt
 src/GuardianLayer.egg-info/top_level.txt
 tests/test_advanced.py

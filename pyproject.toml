@@ -13,14 +13,6 @@ authors = [
 ]
 keywords = ["ai", "loop", "guardian", "meta-cognition", "agent"]
 requires-python = ">=3.8"
-dependencies = [
-  "aiosqlite>=0.19.0",
-]
-
-[project.urls]
-"Homepage" = "https://github.com/your-org/GuardianLayer"
-"Repository" = "https://github.com/your-org/GuardianLayer"
-"Issue Tracker" = "https://github.com/your-org/GuardianLayer/issues"
 
 classifiers = [
   "Development Status :: 5 - Production/Stable",
@@ -38,6 +30,15 @@ classifiers = [
   "Topic :: Software Development :: Libraries",
   "Topic :: Scientific/Engineering :: Artificial Intelligence",
 ]
+
+dependencies = [
+  "aiosqlite>=0.19.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/your-org/GuardianLayer"
+"Repository" = "https://github.com/your-org/GuardianLayer"
+"Issue Tracker" = "https://github.com/your-org/GuardianLayer/issues"
 
 [project.optional-dependencies]
 dev = [

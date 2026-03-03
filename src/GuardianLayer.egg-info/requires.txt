@@ -7,3 +7,4 @@ pytest-cov>=4.0.0
 structlog>=22.0.0
 sphinx>=5.0.0
 sphinx-rtd-theme>=1.2.0
+pre-commit>=2.20.0

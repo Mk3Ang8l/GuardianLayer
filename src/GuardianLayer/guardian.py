@@ -148,6 +148,10 @@ class GuardianLayer:
         """Register a custom validation hook for a specific tool"""
         self.mcp_facade.register_hook(tool_name, hook)
 
+    def remove_hook(self, tool_name: str):
+        """Remove all custom validation hooks for a specific tool"""
+        self.mcp_facade.remove_hook(tool_name)
+
     # =====================
     # Core Shield Methods
     # =====================
@@ -390,6 +394,7 @@ class GuardianLayer:
         """Reset all state for a new conversation"""
         self.loop_detector.reset()
         self.metrics.reset()
+        self.mcp_facade.clear_hooks()
         self._last_error = None
         # Start a new experience session
         session_id = self.experience.start_new_session()

@@ -114,6 +114,17 @@ class MCPFacade:
         self._hooks[tool_name].append(hook)
         logger.info(f"Hook registered for tool: {tool_name}")
 
+    def remove_hook(self, tool_name: str):
+        """Remove all custom validation hooks for a specific tool"""
+        if tool_name in self._hooks:
+            self._hooks.pop(tool_name)
+            logger.info(f"Hooks removed for tool: {tool_name}")
+
+    def clear_hooks(self):
+        """Remove all custom validation hooks for all tools"""
+        self._hooks.clear()
+        logger.info("All validation hooks cleared")
+
     def validate_call(self, tool_call: Dict[str, Any]) -> Dict[str, Any]:
         """
         Validate a tool call against the registered schema and hooks.

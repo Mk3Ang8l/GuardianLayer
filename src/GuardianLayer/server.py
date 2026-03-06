@@ -556,15 +556,19 @@ def register_hook(body: HookRequest):
 @app.delete("/hooks/{tool_name}", tags=["Hooks"], summary="Remove hook for a tool")
 def delete_hook(tool_name: str):
     """
-    Remove the registered hook description for a tool.
-
-    Note: The underlying Python hook function cannot be removed at runtime without
-    restarting. This endpoint removes the hook from the registry listing only.
-    Use `/session/new` or `/reset` to fully clear hook state.
+    Remove all registered hooks for a tool.
+    This entirely clears both the underlying Python hook functions
+    and the API registry listing.
     """
+    g = get_guardian()
     if tool_name not in _registered_hooks:
         raise HTTPException(status_code=404, detail=f"No hook found for tool '{tool_name}'")
+    
+    # Remove from GuardianLayer
+    g.remove_hook(tool_name)
+    # Remove from registry
     _registered_hooks.pop(tool_name)
+    
     return {"status": "removed", "tool": tool_name}
 
 

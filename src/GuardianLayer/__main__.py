@@ -1,9 +1,7 @@
-import uvicorn
-
 try:
     import uvicorn
 except ImportError:
-    print("❌ Pour lancer le serveur installe les dépendances manquantes :")
+    print("to run the server, install the missing dependencies:")
     print("   pip install GuardianLayer[server]")
     exit(1)
 

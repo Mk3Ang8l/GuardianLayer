@@ -3,8 +3,8 @@ GuardianLayer v2.0 - Meta-Cognition Shield for AI Agents
 Enhanced with smart Circuit Breaker, Error Classification, and metrics.
 """
 
-import logging
 import asyncio
+import logging
 import time
 from typing import Any, Callable, Dict, List, Optional
 
@@ -102,7 +102,7 @@ class GuardianLayer:
         # State
         self._last_error: Optional[str] = None
 
-        logger.info("🛡️ GuardianLayer v2.0 initialized")
+        logger.info("GuardianLayer v2.0 initialized")
 
     def _register_metrics(self):
         """Register component metrics with the collector"""
@@ -147,6 +147,10 @@ class GuardianLayer:
     def register_hook(self, tool_name: str, hook: Callable[[Dict], Optional[str]]):
         """Register a custom validation hook for a specific tool"""
         self.mcp_facade.register_hook(tool_name, hook)
+
+    def remove_hook(self, tool_name: str):
+        """Remove all custom validation hooks for a specific tool"""
+        self.mcp_facade.remove_hook(tool_name)
 
     # =====================
     # Core Shield Methods
@@ -390,6 +394,7 @@ class GuardianLayer:
         """Reset all state for a new conversation"""
         self.loop_detector.reset()
         self.metrics.reset()
+        self.mcp_facade.clear_hooks()
         self._last_error = None
         # Start a new experience session
         session_id = self.experience.start_new_session()

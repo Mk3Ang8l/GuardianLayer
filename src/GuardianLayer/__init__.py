@@ -11,7 +11,7 @@ from .interfaces import CacheProvider, StorageProvider
 from .LoopDetector import LoopDetector, LoopMetrics
 from .mcp_facade import MCPFacade, ToolSchema
 from .metrics import MetricsCollector
-from .providers import InMemoryCacheProvider, AsyncInMemoryCacheProvider, SQLiteStorageProvider
+from .providers import AsyncInMemoryCacheProvider, InMemoryCacheProvider, SQLiteStorageProvider
 
 __all__ = [
     # Core

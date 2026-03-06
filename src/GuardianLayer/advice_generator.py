@@ -71,7 +71,7 @@ class AdviceGenerator:
                      Return empty string for no advice.
         """
         self._custom_resolver = resolver
-        logger.info("🎯 Custom advice resolver registered")
+        logger.info("Custom advice resolver registered")
 
     def generate(self, context: AdviceContext) -> str:
         """

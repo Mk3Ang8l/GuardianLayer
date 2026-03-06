@@ -164,7 +164,7 @@ class ExperienceLayer:
         Checks Process cache first, then Global Storage.
         """
         # 1. Process Cache
-        for fp, data in self._process_cache.items():
+        for _fp, data in self._process_cache.items():
             if data.get("tool") == tool_name and data.get("success"):
                 return data.get("call")
 
@@ -231,7 +231,7 @@ class ExperienceLayer:
                 await self.storage.close()
             else:
                 self.storage.close()
-        logger.info("📦 Experience storage closed")
+        logger.info("Experience storage closed")
 
     # =================
     # Async Methods
@@ -260,7 +260,7 @@ class ExperienceLayer:
     async def find_similar_success_async(self, tool_name: str) -> Optional[Dict]:
         """Async version of find_similar_success"""
         # 1. Process Cache (Sync access is fine mainly, but should be careful if massive)
-        for fp, data in self._process_cache.items():
+        for _fp, data in self._process_cache.items():
             if data.get("tool") == tool_name and data.get("success"):
                 return data.get("call")
 

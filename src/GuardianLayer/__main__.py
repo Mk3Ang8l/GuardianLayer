@@ -1,5 +1,3 @@
-import uvicorn
-
 try:
     import uvicorn
 except ImportError:

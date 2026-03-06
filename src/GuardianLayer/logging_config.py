@@ -39,7 +39,9 @@ class GuardianLogger:
             handlers=[
                 logging.StreamHandler(sys.stdout),
                 logging.handlers.RotatingFileHandler(
-                    "guardian.log", maxBytes=10485760, backupCount=5  # 10MB
+                    "guardian.log",
+                    maxBytes=10485760,
+                    backupCount=5,  # 10MB
                 ),
             ],
         )

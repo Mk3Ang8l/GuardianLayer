@@ -3,8 +3,8 @@ GuardianLayer v2.0 - Meta-Cognition Shield for AI Agents
 Enhanced with smart Circuit Breaker, Error Classification, and metrics.
 """
 
-import logging
 import asyncio
+import logging
 import time
 from typing import Any, Callable, Dict, List, Optional
 

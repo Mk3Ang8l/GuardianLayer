@@ -23,11 +23,10 @@ try:
 except ImportError:
     REDIS_AVAILABLE = False
 
-from GuardianLayer import GuardianLayer, AdviceStyle
+from GuardianLayer import AdviceStyle, GuardianLayer
 from GuardianLayer.providers import (
-    SQLiteStorageProvider,
-    AsyncSQLiteStorageProvider,
     InMemoryCacheProvider,
+    SQLiteStorageProvider,
 )
 
 logger = logging.getLogger(__name__)
@@ -203,7 +202,6 @@ def on_startup():
 
 @app.on_event("shutdown")
 def on_shutdown():
-    global _guardian
     if _guardian:
         _guardian.close()
 
@@ -590,11 +588,11 @@ def get_logs(
     logs = list(reversed(_incident_log))  # Most recent first
 
     if tool:
-        logs = [l for l in logs if l.get("tool") == tool]
+        logs = [entry for entry in logs if entry.get("tool") == tool]
     if type:
-        logs = [l for l in logs if l.get("type") == type]
+        logs = [entry for entry in logs if entry.get("type") == type]
     if blocked_only:
-        logs = [l for l in logs if l.get("allowed") is False]
+        logs = [entry for entry in logs if entry.get("allowed") is False]
 
     return {
         "total": len(logs),

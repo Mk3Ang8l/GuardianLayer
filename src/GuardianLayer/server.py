@@ -11,9 +11,31 @@ import os
 import time
 from typing import Any, Dict, List, Optional
 
-from fastapi import FastAPI, HTTPException, Query
+from fastapi import Depends, FastAPI, HTTPException, Query, Security
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.security import APIKeyHeader
 from pydantic import BaseModel, Field
+
+from GuardianLayer import AdviceStyle, GuardianLayer
+from GuardianLayer.providers import (
+    InMemoryCacheProvider,
+    SQLiteStorageProvider,
+)
+
+# ── Security ──────────────────────────────────────────────────
+ADMIN_API_KEY = os.getenv("GUARDIAN_ADMIN_KEY")
+api_key_header = APIKeyHeader(name="X-Admin-Key", auto_error=False)
+
+
+def verify_admin_key(api_key: str = Security(api_key_header)):
+    if not ADMIN_API_KEY:
+        # If no key configured, warn but allow (or change this to block by default)
+        logger.warning("Admin endpoint accessed without configured GUARDIAN_ADMIN_KEY")
+        return True
+    if api_key != ADMIN_API_KEY:
+        raise HTTPException(status_code=403, detail="Invalid admin key")
+    return True
+
 
 # ── Optional Redis import ─────────────────────────────────────
 try:
@@ -23,11 +45,6 @@ try:
 except ImportError:
     REDIS_AVAILABLE = False
 
-from GuardianLayer import AdviceStyle, GuardianLayer
-from GuardianLayer.providers import (
-    InMemoryCacheProvider,
-    SQLiteStorageProvider,
-)
 
 logger = logging.getLogger(__name__)
 
@@ -82,16 +99,16 @@ def _build_guardian(
             class RedisCacheProvider(CacheProvider):
                 def __init__(self, client):
                     self._r = client
-                    import pickle
+                    import json
 
-                    self._pickle = pickle
+                    self._json = json
 
                 def get(self, key: str):
                     v = self._r.get(f"gl:{key}")
-                    return self._pickle.loads(v) if v else None
+                    return self._json.loads(v) if v else None
 
                 def set(self, key: str, value, ttl=None):
-                    self._r.set(f"gl:{key}", self._pickle.dumps(value), ex=ttl or 3600)
+                    self._r.set(f"gl:{key}", self._json.dumps(value), ex=ttl or 3600)
 
                 def delete(self, key: str):
                     self._r.delete(f"gl:{key}")
@@ -111,8 +128,12 @@ def _build_guardian(
             logger.info(f"Redis cache connected: {redis_url}")
         except Exception as e:
             logger.warning(f"Redis connection failed, using in-memory cache: {e}")
+            global _redis_client
+            _redis_client = None
             cache_provider = InMemoryCacheProvider()
     else:
+        global _redis_client
+        _redis_client = None
         cache_provider = InMemoryCacheProvider()
 
     storage = SQLiteStorageProvider(db_path)
@@ -326,7 +347,12 @@ def get_database_config():
     }
 
 
-@app.post("/config/database", tags=["Configuration"], summary="Switch database at runtime")
+@app.post(
+    "/config/database",
+    tags=["Configuration"],
+    summary="Switch database at runtime",
+    dependencies=[Depends(verify_admin_key)],
+)
 def set_database_config(body: DatabaseConfigRequest):
     """
     Switch GuardianLayer to a different SQLite database without restarting.
@@ -382,7 +408,12 @@ def get_redis_config():
     }
 
 
-@app.post("/config/redis", tags=["Configuration"], summary="Enable or disable Redis cache")
+@app.post(
+    "/config/redis",
+    tags=["Configuration"],
+    summary="Enable or disable Redis cache",
+    dependencies=[Depends(verify_admin_key)],
+)
 def set_redis_config(body: RedisConfigRequest):
     """
     Switch the cache backend to Redis (or back to in-memory).
@@ -427,7 +458,12 @@ def set_redis_config(body: RedisConfigRequest):
 # ─────────────────────────────────────────────────────────────
 
 
-@app.post("/config/advice-style", tags=["Configuration"], summary="Change advice style")
+@app.post(
+    "/config/advice-style",
+    tags=["Configuration"],
+    summary="Change advice style",
+    dependencies=[Depends(verify_admin_key)],
+)
 def set_advice_style(body: AdviceStyleRequest):
     """
     Change how GuardianLayer formats its advice injections.
@@ -563,12 +599,12 @@ def delete_hook(tool_name: str):
     g = get_guardian()
     if tool_name not in _registered_hooks:
         raise HTTPException(status_code=404, detail=f"No hook found for tool '{tool_name}'")
-    
+
     # Remove from GuardianLayer
     g.remove_hook(tool_name)
     # Remove from registry
     _registered_hooks.pop(tool_name)
-    
+
     return {"status": "removed", "tool": tool_name}
 
 

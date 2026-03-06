@@ -331,7 +331,7 @@ def set_database_config(body: DatabaseConfigRequest):
     """
     Switch GuardianLayer to a different SQLite database without restarting.
 
-    ⚠️ This rebuilds the GuardianLayer instance. In-flight sessions will be reset.
+    This rebuilds the GuardianLayer instance. In-flight sessions will be reset.
     Registered tools **are not** automatically migrated — re-register them after switching.
     """
     global _guardian, _current_db_path
@@ -390,7 +390,7 @@ def set_redis_config(body: RedisConfigRequest):
     - Pass a valid `redis_url` to enable Redis.
     - Pass `null` to disable Redis and fall back to in-memory LRU cache.
 
-    ⚠️ This rebuilds the GuardianLayer instance. Registered tools will be cleared.
+    This rebuilds the GuardianLayer instance. Registered tools will be cleared.
     """
     global _guardian, _current_redis_url
 

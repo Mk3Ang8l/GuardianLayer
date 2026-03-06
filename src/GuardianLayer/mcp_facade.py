@@ -112,7 +112,7 @@ class MCPFacade:
         if tool_name not in self._hooks:
             self._hooks[tool_name] = []
         self._hooks[tool_name].append(hook)
-        logger.info(f"🔗 Hook registered for tool: {tool_name}")
+        logger.info(f"Hook registered for tool: {tool_name}")
 
     def validate_call(self, tool_call: Dict[str, Any]) -> Dict[str, Any]:
         """

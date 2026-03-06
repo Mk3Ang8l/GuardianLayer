@@ -102,7 +102,7 @@ class GuardianLayer:
         # State
         self._last_error: Optional[str] = None
 
-        logger.info("🛡️ GuardianLayer v2.0 initialized")
+        logger.info("GuardianLayer v2.0 initialized")
 
     def _register_metrics(self):
         """Register component metrics with the collector"""

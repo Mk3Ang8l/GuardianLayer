@@ -221,7 +221,7 @@ class HealthMonitor:
                 remaining = health.cooldown_duration - elapsed
                 return {
                     "allowed": False,
-                    "advice": f"🔌 Tool '{tool_name}' temporarily disabled. Retry in {remaining:.0f}s",
+                    "advice": f"Tool '{tool_name}' temporarily disabled. Retry in {remaining:.0f}s",
                     "health_score": health.score,
                     "retry_after": remaining,
                     "is_probe": False,
@@ -305,7 +305,7 @@ class HealthMonitor:
         if health.state == CircuitState.HALF_OPEN:
             health.state = CircuitState.CLOSED
             health.cooldown_duration = self.base_cooldown  # Reset cooldown
-            logger.info(f"✅ Circuit CLOSED for '{health.name}' - recovered successfully")
+            logger.info(f"Circuit CLOSED for '{health.name}' - recovered successfully")
 
     def _handle_failure(
         self, health: ToolHealth, error_type: ErrorType, error_message: Optional[str]
@@ -355,7 +355,7 @@ class HealthMonitor:
             health.cooldown_duration = min(health.cooldown_duration * 2, self.max_cooldown)
 
         logger.warning(
-            f"🔌 Circuit OPEN for '{health.name}' - "
+            f"Circuit OPEN for '{health.name}' - "
             f"{health.consecutive_failures} failures, "
             f"cooldown: {health.cooldown_duration}s"
         )
@@ -364,7 +364,7 @@ class HealthMonitor:
         """Manually reset a tool's health (admin override)"""
         if tool_name in self.tools:
             self.tools[tool_name] = ToolHealth(name=tool_name, cooldown_duration=self.base_cooldown)
-            logger.info(f"🔄 Health reset for '{tool_name}'")
+            logger.info(f"Health reset for '{tool_name}'")
 
     def get_all_health(self) -> Dict[str, Dict]:
         """Get health summary for all tracked tools"""

@@ -231,7 +231,7 @@ class ExperienceLayer:
                 await self.storage.close()
             else:
                 self.storage.close()
-        logger.info("📦 Experience storage closed")
+        logger.info("Experience storage closed")
 
     # =================
     # Async Methods
